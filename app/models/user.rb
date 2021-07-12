@@ -9,6 +9,9 @@ class User < ApplicationRecord
   has_many :post_comments,dependent: :destroy
   has_many :view_counts,dependent: :destroy
 
+  has_many :user_group_members,dependent: :destroy
+  has_many :user_groups,through: :user_group_members
+
   ##followed:フォロされた人　follower:フォローした人
   #userがRelationshipのどのカラムを参照するか
   has_many :reverse_of_relationships,class_name:"Relationship",foreign_key:"followed_id",dependent: :destroy
