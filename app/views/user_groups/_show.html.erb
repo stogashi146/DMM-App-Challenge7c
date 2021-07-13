@@ -1,0 +1,13 @@
+<table class='table'>
+
+  <tbody>
+    <% groups.users.each do |group| %>
+      <tr>
+        <td><%= attachment_image_tag(group, :profile_image, :fill, 50, 50, fallback: "no-image-icon.jpg") %></td>
+        <td><%= group.name %></td>
+        <td><%= group.introduction %></td>
+        <td>edit</td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

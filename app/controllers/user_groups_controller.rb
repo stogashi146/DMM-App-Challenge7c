@@ -1,4 +1,12 @@
 class UserGroupsController < ApplicationController
+  before_action :ensure_correct_user,{only:[:edit,:update]}
+  def ensure_correct_user
+    @user = User.find(params[:id])
+    unless @user == current_user
+      redirect_to user_path(current_user)
+    end
+  end
+
   def index
     @groups = UserGroup.all
     @memebers = UserGroupMember.all
@@ -15,21 +23,22 @@ class UserGroupsController < ApplicationController
     member.user_id = current_user.id
     member.user_group_id = @group.id
     member.is_orner = true
-    # current_user.user_group_members.user_id = current_user.id
-    # current_user.user_group_members.is_orner = true
-    # user_group.user_group_members.group_id = @group.id
     @group.save
     member.save
-
     redirect_to user_groups_path
   end
-
   def edit
     @member = UserGroup.find(params[:id])
   end
   def update
+    @member = UserGroup.find(params[:id])
     @member.update(group_params)
-    redirect_to groups_path
+    redirect_to user_groups_path
+  end
+
+  def show
+    @book = Book.new
+    @groups = UserGroup.find(params[:id])
   end
 
   private
