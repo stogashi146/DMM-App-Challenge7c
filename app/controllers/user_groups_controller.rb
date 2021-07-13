@@ -25,10 +25,15 @@ class UserGroupsController < ApplicationController
   end
 
   def edit
+    @member = UserGroup.find(params[:id])
+  end
+  def update
+    @member.update(group_params)
+    redirect_to groups_path
   end
 
   private
   def group_params
-    params.require(:user_group).permit(:name,:introduction,:group_image_id)
+    params.require(:user_group).permit(:name,:introduction,:group_image)
   end
 end

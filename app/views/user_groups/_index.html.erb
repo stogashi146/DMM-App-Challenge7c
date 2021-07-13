@@ -14,11 +14,11 @@
         <td><%= group.name %></td>
         <td><%= group.introduction %></td>
         <td>
-          <% if group.user_group_member.is_orner == true %>
+          <% if group.user_group_members.select("is_orner").pluck("is_orner") == [true] %>
               <%= link_to "edit",edit_user_group_path(group),class:"btn btn-info btn-block" %>
           <% end %>
         </td>
-        <td><%= link_to 'Show', edit_user_group(group) %></td>
+        <td><%= link_to 'Show', user_group_path(group) %></td>
 
       </tr>
     <% end %>
