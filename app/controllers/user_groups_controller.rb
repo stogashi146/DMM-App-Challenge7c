@@ -1,8 +1,8 @@
 class UserGroupsController < ApplicationController
   before_action :ensure_correct_user,{only:[:edit,:update]}
   def ensure_correct_user
-    @user = User.find(params[:id])
-    unless @user == current_user
+    group = UserGroup.find(params[:id])
+    unless current_user.user_groups.find_by("is_orner")
       redirect_to user_path(current_user)
     end
   end
@@ -19,10 +19,10 @@ class UserGroupsController < ApplicationController
 
   def create
     @group = UserGroup.new(group_params)
+    @group.orner_id = current_user.id
     member = @group.user_group_members.new
     member.user_id = current_user.id
     member.user_group_id = @group.id
-    member.is_orner = true
     @group.save
     member.save
     redirect_to user_groups_path

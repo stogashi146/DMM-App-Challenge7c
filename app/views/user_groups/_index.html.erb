@@ -14,7 +14,8 @@
         <td><%= group.name %></td>
         <td><%= group.introduction %></td>
         <td>
-          <% if group.user_group_members.select("is_orner").pluck("is_orner") == [true] %>
+
+          <% if group.orner_id == current_user.id %>
               <%= link_to "edit",edit_user_group_path(group),class:"btn btn-info btn-block" %>
           <% end %>
         </td>
