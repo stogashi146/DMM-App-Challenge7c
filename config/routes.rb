@@ -13,9 +13,8 @@ Rails.application.routes.draw do
     get "followers" => "relationships#followers",as:"followers"
   end
   get "search" => "searches#search"
-  resources :user_groups,only:[:index,:create,:show,:edit,:new,:update]
-
-
-
+  resources :user_groups do
+    get "join" => "user_groups#join"
+  end
 
 end

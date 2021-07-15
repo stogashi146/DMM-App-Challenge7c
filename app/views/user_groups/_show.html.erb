@@ -1,13 +1,16 @@
 <table class='table'>
-
   <tbody>
-    <% groups.users.each do |group| %>
       <tr>
-        <td><%= attachment_image_tag(group, :profile_image, :fill, 50, 50, fallback: "no-image-icon.jpg") %></td>
+        <td><%= attachment_image_tag(group, :group_image, :fill, 50, 50, fallback: "no-image-icon.jpg") %></td>
         <td><%= group.name %></td>
         <td><%= group.introduction %></td>
-        <td>edit</td>
+        <td>
+          <% if group.users.include?(current_user) %>
+            <% link_to "Leave thos group", user_group_path(group), method: :delete %>
+          <% else %>
+            <%= link_to "Join this group",user_group_join_path(group), class:"btn btn-info btn-block" %>
+          <% end %>
+        </td>
       </tr>
-    <% end %>
   </tbody>
 </table>
